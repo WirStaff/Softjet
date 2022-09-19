@@ -9,11 +9,6 @@ class Repository
     /** @var Model $model */
     protected $model;
 
-    public function getAll()
-    {
-        return app($this->model)::all();
-    }
-
     public function find(int $id)
     {
         $items = app($this->model)::query()->where('id', $id)->get(['*']);

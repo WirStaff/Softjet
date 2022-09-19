@@ -21,11 +21,13 @@ return new class extends Migration
 
             $table->foreign('game_id')
                 ->references('id')
-                ->on('games');
+                ->on('games')
+                ->cascadeOnDelete();
 
             $table->foreign('genre_id')
                 ->references('id')
-                ->on('genres');
+                ->on('genres')
+                ->cascadeOnDelete();
         });
     }
 

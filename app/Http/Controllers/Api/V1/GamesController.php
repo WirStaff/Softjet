@@ -22,7 +22,7 @@ class GamesController extends V1Controller
 
     public function store(Store $request): JsonResponse
     {
-        $game = $this->repositry->createGame($request->input());
+        $game = $this->repositry->create($request->input());
         return $this->success($game);
     }
 
@@ -45,6 +45,17 @@ class GamesController extends V1Controller
     public function update(int $id, Update $request): JsonResponse
     {
         $game = $this->repositry->update($id, $request->input());
+
+        if (!$game) {
+            throw new NotFoundHttpException('Игра не найдена');
+        }
+
+        return $this->success($game);
+    }
+
+    public function destroy(int $id): JsonResponse
+    {
+        $game = $this->repositry->delete($id);
 
         if (!$game) {
             throw new NotFoundHttpException('Игра не найдена');

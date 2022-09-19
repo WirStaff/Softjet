@@ -24,11 +24,10 @@ class GameRepository extends Repository
     {
         return $this->model::query()
             ->with('genres')
-            ->where('id', '=', $id)
-            ->first();
+            ->find($id);
     }
 
-    public function createGame(array $game): Game
+    public function create(array $game): Game
     {
         return $this->model::create($game);
     }
@@ -42,6 +41,17 @@ class GameRepository extends Repository
         }
 
         return $model;
+    }
+
+    public function delete(int $id): Game|Bool
+    {
+        $game = $this->find($id);
+
+        if ($game) {
+            $game->delete();
+        }
+
+        return $game;
     }
 
     public function attachGenre(int $gameId, array $data): Game|Collection|null
