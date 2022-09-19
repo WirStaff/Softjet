@@ -14,11 +14,6 @@ class Repository
         return app($this->model)::all();
     }
 
-    public function getTableName()
-    {
-        return app($this->model)->getTable();
-    }
-
     public function find(int $id)
     {
         $items = app($this->model)::query()->where('id', $id)->get(['*']);
