@@ -13,6 +13,11 @@ class GameRepository extends Repository
      */
     protected $model = Game::class;
 
+    /**
+     * Получает список всех игр
+     *
+     * @return Collection
+     */
     public function getAll(): Collection
     {
         return $this->model::query()
@@ -20,18 +25,37 @@ class GameRepository extends Repository
             ->get();
     }
 
-    public function getOne($id): ?Game
+    /**
+     * Получение игры
+     *
+     * @param int $id
+     * @return ?Game
+     */
+    public function getOne(int $id): ?Game
     {
         return $this->model::query()
             ->with('genres')
             ->find($id);
     }
 
+    /**
+     * Создание игры
+     *
+     * @param array $game
+     * @return Game
+     */
     public function create(array $game): Game
     {
         return $this->model::create($game);
     }
 
+    /**
+     * Обновление игры
+     *
+     * @param int $id
+     * @param array $game
+     * @return Game|Bool
+     */
     public function update(int $id, array $game): Game|Bool
     {
         $model = $this->find($id);
@@ -43,6 +67,12 @@ class GameRepository extends Repository
         return $model;
     }
 
+    /**
+     * Удаление игры
+     *
+     * @param int $id
+     * @return Game|Bool
+     */
     public function delete(int $id): Game|Bool
     {
         $game = $this->find($id);
@@ -54,6 +84,13 @@ class GameRepository extends Repository
         return $game;
     }
 
+    /**
+     * Привязка жанра к игре
+     *
+     * @param int $gameId
+     * @param array $data
+     * @return Game|Collection|null
+     */
     public function attachGenre(int $gameId, array $data): Game|Collection|null
     {
         $game = $this->find($gameId);
@@ -67,6 +104,13 @@ class GameRepository extends Repository
         return $game ? $game->genres : null;
     }
 
+    /**
+     * Отвязка жанра от игры
+     *
+     * @param int $gameId
+     * @param array $data
+     * @return Game|Collection|null
+     */
     public function detachGenre(int $gameId, array $data): Game|Collection|null
     {
         $game = $this->find($gameId);

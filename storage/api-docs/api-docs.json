@@ -1,0 +1,353 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Тестовое задание для Softjet",
+        "description": "Тестовое задание",
+        "version": "0.1"
+    },
+    "servers": [
+        {
+            "url": "http://127.0.0.1:8080/api/v1",
+            "description": "Сервер версия 1"
+        }
+    ],
+    "paths": {
+        "/games": {
+            "get": {
+                "tags": [
+                    "Games"
+                ],
+                "summary": "Возвращает весь список игр",
+                "description": "Возвращает весь список игр",
+                "operationId": "5570640aa9d49c57a8d6147491ecdff8",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Game"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Games"
+                ],
+                "summary": "Добавить игру",
+                "description": "Добавить игру",
+                "operationId": "14f0d5c283f574ab44438a5fb8bd5396",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "name",
+                                    "description"
+                                ],
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "example": "Counter Strike 1.6"
+                                    },
+                                    "description": {
+                                        "type": "string",
+                                        "example": "The best game"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Игра создана",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Game"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Ошибка проверки данных"
+                    }
+                }
+            }
+        },
+        "/games/{id}": {
+            "get": {
+                "tags": [
+                    "Games"
+                ],
+                "summary": "Возвращает игру",
+                "description": "Возвращает игру",
+                "operationId": "6792a46c4d21d95fc00a0c4703c22a39",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "query",
+                        "description": "ID игры",
+                        "required": true,
+                        "schema": {
+                            "type": "id"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Game"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Games"
+                ],
+                "summary": "Обновляет игру",
+                "description": "Обновляет игру",
+                "operationId": "c6e2502e567facda00063f5269f64581",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "query",
+                        "description": "ID игры",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "name",
+                                    "description"
+                                ],
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "example": "Counter Strike 1.6"
+                                    },
+                                    "description": {
+                                        "type": "string",
+                                        "example": "The best game"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Game"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Игра не найдена"
+                    },
+                    "422": {
+                        "description": "Ошибка проверки данных"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Games"
+                ],
+                "summary": "Удаляет игру",
+                "description": "Удаляет игру",
+                "operationId": "6d0e14e162764ce29c342561b0c4c0f8",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "query",
+                        "description": "ID игры",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Игра удалена"
+                    },
+                    "404": {
+                        "description": "Игра не найдена"
+                    }
+                }
+            }
+        },
+        "/games/genres/{id}/attach": {
+            "post": {
+                "tags": [
+                    "Games"
+                ],
+                "summary": "Добавить в игру жанр",
+                "description": "Добавить в игру жанр",
+                "operationId": "6f6d7477983759f2f60c539463f8f01f",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "generes"
+                                ],
+                                "properties": {
+                                    "generes": {
+                                        "type": "string",
+                                        "example": "[1, 2]"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Жанр добавлен",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Genre"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Игра не найдена"
+                    }
+                }
+            }
+        },
+        "/games/genres/{id}/detach": {
+            "post": {
+                "tags": [
+                    "Games"
+                ],
+                "summary": "Удалить из игры жанр",
+                "description": "Удалить из игры жанр",
+                "operationId": "e241c6b3b451e630390ced142d117a56",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "generes"
+                                ],
+                                "properties": {
+                                    "generes": {
+                                        "type": "string",
+                                        "example": "[1, 2]"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Жанр удален",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Genre"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Игра не найдена"
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "Game": {
+                "title": "Game Model",
+                "description": "Game Model",
+                "properties": {
+                    "name": {
+                        "type": "string"
+                    },
+                    "description": {
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            },
+            "Genre": {
+                "title": "Genre Model",
+                "description": "Genre Model",
+                "properties": {
+                    "name": {
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            }
+        },
+        "responses": {
+            "404": {
+                "description": "Не найдена сущность",
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "properties": {
+                                "message": {
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            },
+            "406": {
+                "description": "Ошибка валидации переданных параметров",
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "properties": {
+                                "message": {
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

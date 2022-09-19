@@ -15,10 +15,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::apiResource('/games', GamesController::class);
-Route::apiResource('/genres', GenresController::class);
+Route::prefix('v1')->group(function() {
+    Route::apiResource('/games', GamesController::class);
+    Route::apiResource('/genres', GenresController::class);
 
-Route::prefix('/games/genres')->group(function() {
-    Route::post('/{id}/attach', [GamesController::class, 'genreAttach']);
-    Route::post('/{id}/detach', [GamesController::class, 'genreDetach']);
+    Route::prefix('/games/genres')->group(function() {
+        Route::post('/{id}/attach', [GamesController::class, 'genreAttach']);
+        Route::post('/{id}/detach', [GamesController::class, 'genreDetach']);
+    });
 });
