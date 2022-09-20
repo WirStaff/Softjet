@@ -85,11 +85,11 @@ class GamesController extends V1Controller
      *      @OA\Response(
      *          response=200,
      *          description="OK",
-     *          @OA\JsonContent(ref="#/components/schemas/Game")
+     *          @OA\JsonContent(ref="#/components/schemas/Genre")
      *      ),
      * )
+     * @param int $id
      * @return JsonResponse
-     * @throws NotFoundHttpException
      */
     public function show(int $id): JsonResponse
     {
@@ -106,8 +106,8 @@ class GamesController extends V1Controller
      * @OA\Put(
      *      path="/games/{id}",
      *      tags={"Games"},
-     *      summary="Обновляет игру",
-     *      description="Обновляет игру",
+     *      summary="Обновить игру",
+     *      description="Обновить игру",
      *      @OA\Parameter(
      *          name="id",
      *          in="query",
@@ -151,8 +151,8 @@ class GamesController extends V1Controller
      * @OA\Delete  (
      *      path="/games/{id}",
      *      tags={"Games"},
-     *      summary="Удаляет игру",
-     *      description="Удаляет игру",
+     *      summary="Удалить игру",
+     *      description="Удалить игру",
      *      @OA\Parameter(
      *          name="id",
      *          in="query",
@@ -184,7 +184,7 @@ class GamesController extends V1Controller
      *          required=true,
      *          @OA\JsonContent(
      *              required={"generes"},
-     *              @OA\Property(property="generes", type="string", example="[1, 2]"),
+     *              @OA\Property(property="generes", type="integer", example="[1, 2]"),
      *          ),
      *      ),
      *      @OA\Response(
@@ -211,7 +211,7 @@ class GamesController extends V1Controller
     }
 
     /**
-     *  @OA\Post(
+     * @OA\Post(
      *      path = "/games/genres/{id}/detach",
      *      tags = { "Games" },
      *      summary = "Удалить из игры жанр",
@@ -220,7 +220,7 @@ class GamesController extends V1Controller
      *          required=true,
      *          @OA\JsonContent(
      *              required={"generes"},
-     *              @OA\Property(property="generes", type="string", example="[1, 2]"),
+     *              @OA\Property(property="generes", type="integer", example="[1, 2]"),
      *          ),
      *      ),
      *      @OA\Response(
@@ -230,10 +230,9 @@ class GamesController extends V1Controller
      *      ),
      *      @OA\Response(response=404, description="Игра не найдена")
      *  )
-     *  @param int $id
-     *  @param Attach $request
-     *  @return JsonResponse
-     *  @throws NotFoundHttpException
+     * @param int $id
+     * @param Detach $request
+     * @return JsonResponse
      */
     public function genreDetach(int $id, Detach $request): JsonResponse
     {

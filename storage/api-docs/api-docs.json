@@ -106,7 +106,7 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/Game"
+                                    "$ref": "#/components/schemas/Genre"
                                 }
                             }
                         }
@@ -117,8 +117,8 @@
                 "tags": [
                     "Games"
                 ],
-                "summary": "Обновляет игру",
-                "description": "Обновляет игру",
+                "summary": "Обновить игру",
+                "description": "Обновить игру",
                 "operationId": "c6e2502e567facda00063f5269f64581",
                 "parameters": [
                     {
@@ -178,8 +178,8 @@
                 "tags": [
                     "Games"
                 ],
-                "summary": "Удаляет игру",
-                "description": "Удаляет игру",
+                "summary": "Удалить игру",
+                "description": "Удалить игру",
                 "operationId": "6d0e14e162764ce29c342561b0c4c0f8",
                 "parameters": [
                     {
@@ -220,7 +220,7 @@
                                 ],
                                 "properties": {
                                     "generes": {
-                                        "type": "string",
+                                        "type": "integer",
                                         "example": "[1, 2]"
                                     }
                                 },
@@ -264,7 +264,7 @@
                                 ],
                                 "properties": {
                                     "generes": {
-                                        "type": "string",
+                                        "type": "integer",
                                         "example": "[1, 2]"
                                     }
                                 },
@@ -286,6 +286,186 @@
                     },
                     "404": {
                         "description": "Игра не найдена"
+                    }
+                }
+            }
+        },
+        "/genres": {
+            "get": {
+                "tags": [
+                    "Genres"
+                ],
+                "summary": "Возвращает весь список жанров",
+                "description": "Возвращает весь список жанров",
+                "operationId": "53e6440399ff99e07d0931b876a97daa",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Genre"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Genres"
+                ],
+                "summary": "Добавить жанр",
+                "description": "Добавить жанр",
+                "operationId": "36920d55416ef81cc8d3fd4335c87aeb",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "name"
+                                ],
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "example": "Шутер"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Жанр создан",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Genre"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Ошибка проверки данных"
+                    }
+                }
+            }
+        },
+        "/genres/{id}": {
+            "get": {
+                "tags": [
+                    "Genres"
+                ],
+                "summary": "Возвращает жанр",
+                "description": "Возвращает жанр",
+                "operationId": "756397d15a0ae97f8c066fe40ae017fb",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "query",
+                        "description": "ID жанра",
+                        "required": true,
+                        "schema": {
+                            "type": "id"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Genre"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Genres"
+                ],
+                "summary": "Обновить жанр",
+                "description": "Обновить жанр",
+                "operationId": "c08903d14af8dbd86a31cc2b2ad88bba",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "query",
+                        "description": "ID жанра",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "name"
+                                ],
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "example": "Шутер"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Genre"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Жанр не найден"
+                    },
+                    "422": {
+                        "description": "Ошибка проверки данных"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Genres"
+                ],
+                "summary": "Удалить жанр",
+                "description": "Удалить жанр",
+                "operationId": "3291acc0b8b3e2247705e97b7a9b1ca6",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "query",
+                        "description": "ID жанра",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Жанр удален"
+                    },
+                    "404": {
+                        "description": "Жанр не найден"
                     }
                 }
             }
