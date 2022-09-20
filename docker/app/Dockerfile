@@ -22,6 +22,10 @@ RUN curl -sS https://getcomposer.org/installer | php -- \
     --filename=composer \
     --install-dir=/usr/local/bin \
 
+RUN adduser -u 1000 -G www-data -s /bin/sh -D www-data \
+    && addgroup www-data wheel
+
+USER www-data
+
 WORKDIR /var/www
 ADD . /var/www
-RUN chmod -R 777 /var/www/storage
